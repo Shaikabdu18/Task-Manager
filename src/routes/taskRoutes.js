@@ -10,15 +10,14 @@ router.post("/task",taskController.createTask)
 //Get Post
 router.get("/tasks",taskController.getAllTasks)
 
-
 //Get Post by ID
 router.get("/tasks/:id",taskController.getById)
-/*
+
 //Update Post
-router.patch("/tasks:id",taskController)
+router.patch("/tasks/:id",taskController.updateTask)
 
 //Delete Post
-router.delete("/tasks:id",taskCotroller)
- */
+router.delete("/tasks/:id",taskController.deleteTask)
+
 
 module.exports=router;
