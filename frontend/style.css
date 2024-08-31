@@ -1,0 +1,96 @@
+/* Basic styling for the page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container styling */
+.container {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form styling */
+form {
+  margin-bottom: 20px;
+}
+
+/* Input fields styling */
+input[type="text"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px; /* Add space below input fields */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Add task button styling */
+button[type="submit"] {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px; /* Add space above the button */
+}
+
+/* Edit and Delete buttons styling */
+button.edit,
+button.delete {
+  padding: 5px 10px; /* Adjust padding for buttons */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px; /* Adjust font size */
+  margin-right: 10px; /* Add space to the right of buttons */
+}
+
+/* Edit button specific styling */
+button.edit {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Delete button specific styling */
+button.delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Task list styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Task text styling */
+li span {
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+/* Button container styling */
+.button-container {
+  display: flex;
+  gap: 10px; /* Add space between buttons */
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        
+        <!-- Form for creating and updating tasks -->
+        <form id="taskForm">
+            <input type="text" id="title" placeholder="Task Title" required>
+            <input type="text" id="description" placeholder="Task Description">
+            <input type="hidden" id="taskId"> <!-- Hidden input for storing task ID -->
+            <button type="submit">Add Task</button>
+        </form>
+
+        <h2>Tasks</h2>
+        <ul id="taskList">
+            <!-- Example task item -->
+            <li>
+                <span>Task Title Here</span>
+                <div class="button-container">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </div>
+            </li>
+            <!-- More tasks here -->
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
