@@ -1,23 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const taskController = require('../controllers/taskController');
+const verifyToken = require("../verifyToken")
 
 
 
 //Create Post
-router.post("/tasks",taskController.createTask)
+router.post("/tasks",verifyToken,taskController.createTask)
 
 //Get Post
-router.get("/tasks",taskController.getAllTasks)
+router.get("/tasks",verifyToken,taskController.getAllTasks)
 
 //Get Post by ID
-router.get("/tasks/:id",taskController.getById)
+router.get("/tasks/:id",verifyToken,taskController.getById)
 
 //Update Post
-router.patch("/tasks/:id",taskController.updateTask)
+router.patch("/tasks/:id",verifyToken,taskController.updateTask)
 
 //Delete Post
-router.delete("/tasks/:id",taskController.deleteTask)
+router.delete("/tasks/:id",verifyToken,taskController.deleteTask)
 
 
 module.exports=router;

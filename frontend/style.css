@@ -52,7 +52,6 @@ button.delete {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px; /* Adjust font size */
-  margin-right: 10px; /* Add space to the right of buttons */
 }
 
 /* Edit button specific styling */
@@ -93,4 +92,5 @@ li span {
 .button-container {
   display: flex;
   gap: 10px; /* Add space between buttons */
+  align-items: center; /* Vertically center the buttons */
 }

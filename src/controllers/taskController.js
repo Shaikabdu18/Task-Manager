@@ -2,23 +2,29 @@ const Task = require("../models/task")
 
 //Create a new task
 exports.createTask=async(req,res)=>{
+  const {title,description,dueDate} = req.body;
   try {
-    const task = new Task(req.body);
-    await task.save();
+    const task = await Task.create({
+      user:req.user.id,
+      title,
+      description,
+      dueDate
+    })
     res.status(201).send(task)
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 }
 
 //Get all Task
 exports.getAllTasks=async(req,res)=>{
   try {
-    const tasks = await Task.find({});
+    const tasks = await Task.find({user:req.user.id});
+    if(tasks.length ===0) return res.status(200).json({msg:"No Task Created By You"})
     res.status(200).send(tasks);
     
   } catch (error) {
-    res.status(400).send(error)
+    res.status(400).send(error.message)
   }
 }
 
@@ -27,12 +33,12 @@ exports.getById=async(req,res)=>{
   const { id } = req.params;
   try {
     const task = await Task.findById(id);
-    if(!task){
-      res.status(404).send({error:"Task not Found"})
+    if(!task|| task.user.toString()!== req.user.id){
+      return res.status(404).send({error:"Task not Found"})
     }
-    res.status(200).send(task)
+    return res.status(200).send(task)
   } catch (error) {
-    res.status(500).send(error)
+    res.status(500).send(error.message)
   }
 }
 
@@ -55,7 +61,7 @@ exports.updateTask=async(req,res)=>{
     res.status(200).send(task)
     
   } catch (error) {
-    res.status(400).send(error)
+    res.status(400).send(error.message)
   }
 }
 
@@ -63,12 +69,13 @@ exports.updateTask=async(req,res)=>{
 exports.deleteTask=async(req,res)=>{
   const { id } = req.params;
   try {
-    const task = await Task.findByIdAndDelete(id);
-    if(!task){
-      res.status(404).send({error:"Task Not Found"})
+    const task = await Task.findById(id);
+    if(!task || task.user.toString()!== req.user.id){
+      return res.status(404).send({error:"Task Not Found"})
     }
-      res.status(200).send(task)
+    await task.deleteOne()
+     return res.status(200).json({msg:"task Removed Successfully"})
   } catch (error) {
-    res.status(500).send(error)
+    return res.status(500).send(error.message)
   }
 }
