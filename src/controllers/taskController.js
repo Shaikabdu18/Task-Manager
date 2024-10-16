@@ -44,24 +44,23 @@ exports.getById=async(req,res)=>{
 
 //Update By ID
 exports.updateTask=async(req,res)=>{
-  const {id}=req.params;
-  const updates = Object.keys(req.body);
-  const allowedUpdates = ["title","description","completed"];
-  const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
-  if(!isValidOperation){
-    res.status(404).send({error:"Invalid Updates"})
-  }
   try {
+    const{id}=req.params;
     const task = await Task.findById(id)
-    if(!task){
-      res.status(404).send({error:"Task is not found"})
+    if(!task || task.user.toString()!==req.user.id){
+      return res.status(404).json({msg:"No Task Found"})
     }
-    updates.forEach((update) => (task[update] = req.body[update]));
-    await task.save();
-    res.status(200).send(task)
+  
+      task.title = req.body.title || task.title,
+      task.description = req.body.description || task.description;
+      task.completed = req.body.completed === undefined ? task.completed : req.body.completed;
+
+    await task.save()
+
+    res.status(201).json({msg:"Task Updated Successfully"})
     
   } catch (error) {
-    res.status(400).send(error.message)
+    res.status(500).json({msg:error.message})
   }
 }
 

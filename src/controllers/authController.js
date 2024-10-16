@@ -40,3 +40,30 @@ exports.register=async(req,res)=>{
       return res.status(500).json({msg:error.message})
     }
   }
+
+  // Get Profile
+
+  exports.getProfile = async(req,res)=>{
+    const{id} = req.user
+    const user = await User.findById(id);
+  res.status(200).json({ _id: user._id, name: user.username, email: user.email });
+  }
+
+  // Update Profile
+
+  exports.updateProfile = async(req,res)=>{
+    const{id} = req.user
+    const user = await User.findById(id)
+    if(user){
+      user.username = req.body.username||user.username;
+      user.email = req.body.email||user.email;
+      user.password = req.body.password||user.password;
+      await user.save()
+      const userResponse = user.toObject(); 
+      delete userResponse.password;
+      res.status(201).json({userResponse})
+    }
+    else{
+      res.status(404).json({msg:"User Not found"})
+    }
+  }
