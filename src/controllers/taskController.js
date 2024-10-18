@@ -78,3 +78,21 @@ exports.deleteTask=async(req,res)=>{
     return res.status(500).send(error.message)
   }
 }
+
+// Search Task
+exports.searchTasks = async (req, res) => {
+  const { search } = req.query;
+
+  try {
+    const tasks = await Task.find({
+      user: req.user.id,
+      $or: [
+        { title: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } }
+      ]
+    });
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ "msg": error.message });
+  }
+};
